@@ -12,23 +12,35 @@ app.use(bodyParser.json());
 
 app.post('/api/v1/titles', (request, response) => {
   const title = request.body;
-
-  for (let requiredParameter of ['title']) {
-    if (!project[requiredParameter]) {
-      return response 
-        .status(422)
-        .send({error: `Expected format: {name:<String>} You're missing a "${requiredParameter}" property.`});
-    }
-  }
+  console.log(title)
+  // for (let requiredParameter of ['title']) {
+  //   if (!title[requiredParameter]) {
+  //     return response 
+  //       .status(422)
+  //       .send({error: `Expected format: {name:<String>} You're missing a "${requiredParameter}" property.`});
+  //   }
+  // }
 
   database('bucket_list_titles').insert(title, 'id')
   .then(title => {
+    console.log('title', title)
       response.status(201).json({id: title[0]});
     })
     .catch(error => {
       response.status(500).json({error});
     });
 });
+
+app.get('/api/v1/titles', (request, response) => {
+  database('bucket_list_titles').select()
+    .then(titles => {
+      console.log(titles)
+      response.status.json({title: titles})
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    })
+})
 
 app.listen(3000, () => {
   console.log('The HTTP server is listening at Port 3000.');
