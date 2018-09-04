@@ -1,4 +1,5 @@
 $('.item--generating-btn').on('click', createListItem);
+$('#bucket--list-display').on('click', $('.card--delete-btn'), deleteListItem);
 
 function createListItem(event) {
   event.preventDefault();
@@ -9,3 +10,7 @@ function createListItem(event) {
       <p>${$('.input-description').val()}
     </article>`)
 }
+
+function deleteListItem(event) {
+  (event.target).closest('article').remove();
+} 
