@@ -4,7 +4,6 @@ const database = require('knex')(configuration);
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
-// const jwt = require('jsonwebtoken');
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
@@ -23,7 +22,6 @@ app.post('/api/v1/titles', (request, response) => {
 
   database('bucket_list_titles').insert(title, 'id')
   .then(title => {
-    console.log('title', title)
       response.status(201).json({id: title[0]});
     })
     .catch(error => {
@@ -34,8 +32,7 @@ app.post('/api/v1/titles', (request, response) => {
 app.get('/api/v1/titles', (request, response) => {
   database('bucket_list_titles').select()
     .then(titles => {
-      console.log(titles)
-      response.status.json({title: titles})
+      response.status(200).json({title: titles})
     })
     .catch(error => {
       response.status(500).json({error})
