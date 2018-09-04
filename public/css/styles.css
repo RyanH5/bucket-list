@@ -1,0 +1,11 @@
+.bucket--list-title {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.item--generating-form {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  margin: auto;
+}
